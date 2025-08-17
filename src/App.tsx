@@ -19,6 +19,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/iniciar-sesion" element={<IniciarSesion />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
