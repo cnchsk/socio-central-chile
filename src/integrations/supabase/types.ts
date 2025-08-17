@@ -29,12 +29,45 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          creado_en: string | null
+          email: string
+          id: string
+          nombre: string
+          rfid: string | null
+          role: string | null
+          rut: string
+        }
+        Insert: {
+          creado_en?: string | null
+          email: string
+          id: string
+          nombre: string
+          rfid?: string | null
+          role?: string | null
+          rut: string
+        }
+        Update: {
+          creado_en?: string | null
+          email?: string
+          id?: string
+          nombre?: string
+          rfid?: string | null
+          role?: string | null
+          rut?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
