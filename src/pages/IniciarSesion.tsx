@@ -90,7 +90,7 @@ const IniciarSesion = () => {
           
           console.log("Verificação de admin:", { isAdmin });
           
-          toast({ title: "Ingreso exitoso" });
+          // toast({ title: "Ingreso exitoso" }); // Removido para evitar confusão
           
           // Redirecionar baseado no role
           if (isAdmin) {
