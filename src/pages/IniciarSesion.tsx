@@ -35,16 +35,7 @@ const IniciarSesion = () => {
       document.head.appendChild(l);
     }
 
-    // Verificar se já está autenticado e redirecionar
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        navigate("/");
-      }
-    };
-    checkAuth();
-
-    // Listener para mudanças de autenticação
+    // Listener apenas para mudanças de autenticação (não checar na inicialização)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         navigate("/");
