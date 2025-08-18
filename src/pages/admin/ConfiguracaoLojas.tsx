@@ -16,7 +16,7 @@ const ConfiguracaoLojas = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    document.title = "Configuração de Lojas | Painel Administrativo";
+    document.title = "Configuración de Tiendas | Panel Administrativo";
     
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -32,8 +32,8 @@ const ConfiguracaoLojas = () => {
 
       if (!isAdmin) {
         toast({
-          title: "Acesso negado",
-          description: "Você não tem permissão para acessar esta área"
+          title: "Acceso denegado",
+          description: "No tienes permisos para acceder a esta área"
         });
         navigate("/dashboard");
         return;
@@ -49,7 +49,7 @@ const ConfiguracaoLojas = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p>Carregando...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
@@ -69,8 +69,8 @@ const ConfiguracaoLojas = () => {
               Voltar
             </Button>
             <div>
-              <h1 className="text-lg font-semibold">Configuração de Lojas</h1>
-              <p className="text-sm text-muted-foreground">Configurar permissões e configurações das lojas</p>
+              <h1 className="text-lg font-semibold">Configuración de Tiendas</h1>
+              <p className="text-sm text-muted-foreground">Configurar permisos y configuraciones de las tiendas</p>
             </div>
           </div>
         </nav>
@@ -81,23 +81,23 @@ const ConfiguracaoLojas = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Settings className="h-5 w-5" />
-              Selecionar Loja
+              Seleccionar Tienda
             </CardTitle>
             <CardDescription>
-              Escolha a loja para configurar suas permissões e configurações
+              Elige la tienda para configurar sus permisos y configuraciones
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Label htmlFor="loja-select">Loja</Label>
+              <Label htmlFor="loja-select">Tienda</Label>
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma loja para configurar" />
+                  <SelectValue placeholder="Selecciona una tienda para configurar" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="loja1">Loja Exemplo 1</SelectItem>
-                  <SelectItem value="loja2">Loja Exemplo 2</SelectItem>
-                  <SelectItem value="loja3">Loja Exemplo 3</SelectItem>
+                  <SelectItem value="loja1">Tienda Ejemplo 1</SelectItem>
+                  <SelectItem value="loja2">Tienda Ejemplo 2</SelectItem>
+                  <SelectItem value="loja3">Tienda Ejemplo 3</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -106,17 +106,17 @@ const ConfiguracaoLojas = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Configurações Gerais</CardTitle>
+            <CardTitle>Configuraciones Generales</CardTitle>
             <CardDescription>
-              Defina as configurações básicas da loja
+              Define las configuraciones básicas de la tienda
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Loja Ativa</Label>
+                <Label>Tienda Activa</Label>
                 <p className="text-sm text-muted-foreground">
-                  Ativar ou desativar a loja no sistema
+                  Activar o desactivar la tienda en el sistema
                 </p>
               </div>
               <Switch />
@@ -124,9 +124,9 @@ const ConfiguracaoLojas = () => {
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Notificações por E-mail</Label>
+                <Label>Notificaciones por E-mail</Label>
                 <p className="text-sm text-muted-foreground">
-                  Enviar notificações automáticas para a loja
+                  Enviar notificaciones automáticas a la tienda
                 </p>
               </div>
               <Switch />
@@ -134,9 +134,9 @@ const ConfiguracaoLojas = () => {
             
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Acesso Premium</Label>
+                <Label>Acceso Premium</Label>
                 <p className="text-sm text-muted-foreground">
-                  Habilitar recursos premium para a loja
+                  Habilitar funciones premium para la tienda
                 </p>
               </div>
               <Switch />
@@ -146,9 +146,9 @@ const ConfiguracaoLojas = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Limites e Cotas</CardTitle>
+            <CardTitle>Límites y Cuotas</CardTitle>
             <CardDescription>
-              Configure os limites de uso da loja
+              Configura los límites de uso de la tienda
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -158,20 +158,20 @@ const ConfiguracaoLojas = () => {
                 <Input id="max-clientes" type="number" placeholder="100" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="max-produtos">Máximo de Produtos</Label>
+                <Label htmlFor="max-produtos">Máximo de Productos</Label>
                 <Input id="max-produtos" type="number" placeholder="1000" />
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="storage-limite">Limite de Armazenamento (GB)</Label>
+              <Label htmlFor="storage-limite">Límite de Almacenamiento (GB)</Label>
               <Input id="storage-limite" type="number" placeholder="10" />
             </div>
           </CardContent>
         </Card>
 
         <div className="flex gap-4">
-          <Button>Salvar Configurações</Button>
+          <Button>Guardar Configuraciones</Button>
           <Button variant="outline" onClick={() => navigate("/admin")}>
             Cancelar
           </Button>

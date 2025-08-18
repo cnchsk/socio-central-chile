@@ -15,7 +15,7 @@ const CadastroClientes = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    document.title = "Cadastro de Clientes | Painel Administrativo";
+    document.title = "Registro de Clientes | Panel Administrativo";
     
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -31,8 +31,8 @@ const CadastroClientes = () => {
 
       if (!isAdmin) {
         toast({
-          title: "Acesso negado",
-          description: "Você não tem permissão para acessar esta área"
+          title: "Acceso denegado",
+          description: "No tienes permisos para acceder a esta área"
         });
         navigate("/dashboard");
         return;
@@ -48,7 +48,7 @@ const CadastroClientes = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p>Carregando...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
@@ -68,8 +68,8 @@ const CadastroClientes = () => {
               Voltar
             </Button>
             <div>
-              <h1 className="text-lg font-semibold">Cadastro de Clientes</h1>
-              <p className="text-sm text-muted-foreground">Gerenciar clientes das lojas</p>
+              <h1 className="text-lg font-semibold">Registro de Clientes</h1>
+              <p className="text-sm text-muted-foreground">Gestionar clientes de las tiendas</p>
             </div>
           </div>
         </nav>
@@ -78,69 +78,69 @@ const CadastroClientes = () => {
       <main className="mx-auto max-w-4xl px-4 py-8">
         <Card>
           <CardHeader>
-            <CardTitle>Novo Cliente</CardTitle>
+            <CardTitle>Nuevo Cliente</CardTitle>
             <CardDescription>
-              Cadastre um novo cliente vinculado a uma loja
+              Registra un nuevo cliente vinculado a una tienda
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="nome">Nome Completo</Label>
-                <Input id="nome" placeholder="Digite o nome completo" />
+                <Label htmlFor="nome">Nombre Completo</Label>
+                <Input id="nome" placeholder="Ingresa el nombre completo" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cpf">CPF</Label>
-                <Input id="cpf" placeholder="000.000.000-00" />
+                <Label htmlFor="cpf">RUT</Label>
+                <Input id="cpf" placeholder="12.345.678-9" />
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="loja">Loja Vinculada</Label>
+              <Label htmlFor="loja">Tienda Vinculada</Label>
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione uma loja" />
+                  <SelectValue placeholder="Selecciona una tienda" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="loja1">Loja Exemplo 1</SelectItem>
-                  <SelectItem value="loja2">Loja Exemplo 2</SelectItem>
-                  <SelectItem value="loja3">Loja Exemplo 3</SelectItem>
+                  <SelectItem value="loja1">Tienda Ejemplo 1</SelectItem>
+                  <SelectItem value="loja2">Tienda Ejemplo 2</SelectItem>
+                  <SelectItem value="loja3">Tienda Ejemplo 3</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="telefone">Telefone</Label>
-                <Input id="telefone" placeholder="(00) 00000-0000" />
+                <Label htmlFor="telefone">Teléfono</Label>
+                <Input id="telefone" placeholder="+56 9 0000 0000" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">E-mail</Label>
-                <Input id="email" type="email" placeholder="cliente@exemplo.com" />
+                <Input id="email" type="email" placeholder="cliente@ejemplo.com" />
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="endereco">Endereço</Label>
-              <Input id="endereco" placeholder="Digite o endereço completo" />
+              <Label htmlFor="endereco">Dirección</Label>
+              <Input id="endereco" placeholder="Ingresa la dirección completa" />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="nivel">Nível de Acesso</Label>
+              <Label htmlFor="nivel">Nivel de Acceso</Label>
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione o nível" />
+                  <SelectValue placeholder="Selecciona el nivel" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="basico">Básico</SelectItem>
-                  <SelectItem value="intermediario">Intermediário</SelectItem>
+                  <SelectItem value="intermediario">Intermedio</SelectItem>
                   <SelectItem value="premium">Premium</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div className="flex gap-4">
-              <Button>Cadastrar Cliente</Button>
+              <Button>Registrar Cliente</Button>
               <Button variant="outline" onClick={() => navigate("/admin")}>
                 Cancelar
               </Button>

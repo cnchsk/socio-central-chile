@@ -10,7 +10,7 @@ const Admin = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    document.title = "Painel Administrativo | Sitio institucional";
+    document.title = "Panel Administrativo | Sitio institucional";
     
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -27,8 +27,8 @@ const Admin = () => {
 
       if (!isAdmin) {
         toast({
-          title: "Acesso negado",
-          description: "Você não tem permissão para acessar esta área"
+          title: "Acceso denegado",
+          description: "No tienes permisos para acceder a esta área"
         });
         navigate("/dashboard");
         return;
@@ -49,7 +49,7 @@ const Admin = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p>Carregando...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
@@ -58,10 +58,10 @@ const Admin = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b">
         <nav className="mx-auto max-w-7xl px-4 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-lg font-semibold">Painel Administrativo</h1>
-            <p className="text-sm text-muted-foreground">Bem-vindo, {user?.email}</p>
-          </div>
+            <div>
+              <h1 className="text-lg font-semibold">Panel Administrativo</h1>
+              <p className="text-sm text-muted-foreground">Bienvenido, {user?.email}</p>
+            </div>
           <Button onClick={handleLogout} variant="outline">
             Cerrar sesión
           </Button>
@@ -76,19 +76,19 @@ const Admin = () => {
               href="/admin/cadastro-lojas" 
               className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
             >
-              Cadastro de Lojas (VIP)
+              Registro de Tiendas (VIP)
             </a>
             <a 
               href="/admin/cadastro-clientes" 
               className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
             >
-              Cadastro Clientes Lojas
+              Registro Clientes Tiendas
             </a>
             <a 
               href="/admin/configuracao-lojas" 
               className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
             >
-              Configuração Lojas
+              Configuración Tiendas
             </a>
           </div>
         </div>
@@ -99,23 +99,23 @@ const Admin = () => {
           <section className="bg-card p-6 rounded-lg border">
             <h2 className="text-xl font-semibold mb-4">Dashboard Administrativo</h2>
             <p className="text-muted-foreground mb-4">
-              Você está logado como administrador. Aqui você pode gerenciar o sistema.
+              Estás conectado como administrador. Aquí puedes gestionar el sistema.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 bg-primary/10 rounded-lg">
-                <h3 className="font-medium">Usuários</h3>
-                <p className="text-sm text-muted-foreground">Gerenciar usuários do sistema</p>
+                <h3 className="font-medium">Usuarios</h3>
+                <p className="text-sm text-muted-foreground">Gestionar usuarios del sistema</p>
               </div>
               
               <div className="p-4 bg-secondary/10 rounded-lg">
-                <h3 className="font-medium">Configurações</h3>
+                <h3 className="font-medium">Configuraciones</h3>
                 <p className="text-sm text-muted-foreground">Configurar sistema</p>
               </div>
               
               <div className="p-4 bg-accent/10 rounded-lg">
-                <h3 className="font-medium">Relatórios</h3>
-                <p className="text-sm text-muted-foreground">Visualizar relatórios</p>
+                <h3 className="font-medium">Reportes</h3>
+                <p className="text-sm text-muted-foreground">Visualizar reportes</p>
               </div>
             </div>
           </section>

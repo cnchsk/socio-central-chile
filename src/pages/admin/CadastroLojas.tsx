@@ -15,7 +15,7 @@ const CadastroLojas = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    document.title = "Cadastro de Lojas VIP | Painel Administrativo";
+    document.title = "Registro de Tiendas VIP | Panel Administrativo";
     
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -31,8 +31,8 @@ const CadastroLojas = () => {
 
       if (!isAdmin) {
         toast({
-          title: "Acesso negado",
-          description: "Você não tem permissão para acessar esta área"
+          title: "Acceso denegado",
+          description: "No tienes permisos para acceder a esta área"
         });
         navigate("/dashboard");
         return;
@@ -48,7 +48,7 @@ const CadastroLojas = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p>Carregando...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
@@ -68,8 +68,8 @@ const CadastroLojas = () => {
               Voltar
             </Button>
             <div>
-              <h1 className="text-lg font-semibold">Cadastro de Lojas VIP</h1>
-              <p className="text-sm text-muted-foreground">Gerenciar clientes VIP</p>
+              <h1 className="text-lg font-semibold">Registro de Tiendas VIP</h1>
+              <p className="text-sm text-muted-foreground">Gestionar clientes VIP</p>
             </div>
           </div>
         </nav>
@@ -78,50 +78,50 @@ const CadastroLojas = () => {
       <main className="mx-auto max-w-4xl px-4 py-8">
         <Card>
           <CardHeader>
-            <CardTitle>Nova Loja VIP</CardTitle>
+            <CardTitle>Nueva Tienda VIP</CardTitle>
             <CardDescription>
-              Cadastre uma nova loja como cliente VIP do sistema
+              Registra una nueva tienda como cliente VIP del sistema
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="nome">Nome da Loja</Label>
-                <Input id="nome" placeholder="Digite o nome da loja" />
+                <Label htmlFor="nome">Nombre de la Tienda</Label>
+                <Input id="nome" placeholder="Ingresa el nombre de la tienda" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cnpj">CNPJ</Label>
-                <Input id="cnpj" placeholder="00.000.000/0000-00" />
+                <Label htmlFor="cnpj">RUT</Label>
+                <Input id="cnpj" placeholder="12.345.678-9" />
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="endereco">Endereço</Label>
-              <Input id="endereco" placeholder="Digite o endereço completo" />
+              <Label htmlFor="endereco">Dirección</Label>
+              <Input id="endereco" placeholder="Ingresa la dirección completa" />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="telefone">Telefone</Label>
-                <Input id="telefone" placeholder="(00) 0000-0000" />
+                <Label htmlFor="telefone">Teléfono</Label>
+                <Input id="telefone" placeholder="+56 9 0000 0000" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">E-mail</Label>
-                <Input id="email" type="email" placeholder="loja@exemplo.com" />
+                <Input id="email" type="email" placeholder="tienda@ejemplo.com" />
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="observacoes">Observações</Label>
+              <Label htmlFor="observacoes">Observaciones</Label>
               <Textarea 
                 id="observacoes" 
-                placeholder="Informações adicionais sobre a loja"
+                placeholder="Información adicional sobre la tienda"
                 rows={4}
               />
             </div>
             
             <div className="flex gap-4">
-              <Button>Cadastrar Loja</Button>
+              <Button>Registrar Tienda</Button>
               <Button variant="outline" onClick={() => navigate("/admin")}>
                 Cancelar
               </Button>
