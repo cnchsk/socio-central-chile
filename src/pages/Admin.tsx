@@ -68,6 +68,32 @@ const Admin = () => {
         </nav>
       </header>
       
+      {/* Menu de Navegação */}
+      <nav className="border-b bg-muted/10">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="flex space-x-8">
+            <a 
+              href="/admin/cadastro-lojas" 
+              className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
+            >
+              Cadastro de Lojas (VIP)
+            </a>
+            <a 
+              href="/admin/cadastro-clientes" 
+              className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
+            >
+              Cadastro Clientes Lojas
+            </a>
+            <a 
+              href="/admin/configuracao-lojas" 
+              className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
+            >
+              Configuração Lojas
+            </a>
+          </div>
+        </div>
+      </nav>
+      
       <main className="mx-auto max-w-7xl px-4 py-8">
         <div className="grid gap-6">
           <section className="bg-card p-6 rounded-lg border">

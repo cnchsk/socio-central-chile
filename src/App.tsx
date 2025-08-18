@@ -9,6 +9,9 @@ import RedefinirSenha from "./pages/RedefinirSenha";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import CadastroLojas from "./pages/admin/CadastroLojas";
+import CadastroClientes from "./pages/admin/CadastroClientes";
+import ConfiguracaoLojas from "./pages/admin/ConfiguracaoLojas";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +26,9 @@ const App = () => (
           <Route path="/iniciar-sesion" element={<IniciarSesion />} />
           <Route path="/redefinir-senha" element={<RedefinirSenha />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/cadastro-lojas" element={<CadastroLojas />} />
+          <Route path="/admin/cadastro-clientes" element={<CadastroClientes />} />
+          <Route path="/admin/configuracao-lojas" element={<ConfiguracaoLojas />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
