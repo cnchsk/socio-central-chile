@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      cliente_tiendas: {
+        Row: {
+          cliente_id: string
+          created_at: string | null
+          id: string
+          tienda_id: string
+        }
+        Insert: {
+          cliente_id: string
+          created_at?: string | null
+          id?: string
+          tienda_id: string
+        }
+        Update: {
+          cliente_id?: string
+          created_at?: string | null
+          id?: string
+          tienda_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cliente_tiendas_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cliente_tiendas_tienda_id_fkey"
+            columns: ["tienda_id"]
+            isOneToOne: false
+            referencedRelation: "tiendas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           creado_en: string | null
@@ -41,6 +77,42 @@ export type Database = {
           rfid?: string | null
           role?: string | null
           rut?: string
+        }
+        Relationships: []
+      }
+      tiendas: {
+        Row: {
+          activa: boolean | null
+          created_at: string | null
+          direccion: string | null
+          email: string | null
+          id: string
+          nombre: string
+          rut: string
+          telefono: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          activa?: boolean | null
+          created_at?: string | null
+          direccion?: string | null
+          email?: string | null
+          id?: string
+          nombre: string
+          rut: string
+          telefono?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          activa?: boolean | null
+          created_at?: string | null
+          direccion?: string | null
+          email?: string | null
+          id?: string
+          nombre?: string
+          rut?: string
+          telefono?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
