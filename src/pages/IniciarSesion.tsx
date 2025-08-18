@@ -51,17 +51,22 @@ const IniciarSesion = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
+        console.error("Erro de login:", error);
         toast({
           title: "Error al iniciar sesión",
-          description: "Correo o contraseña inválidos",
+          description: error.message || "Correo o contraseña inválidos",
         });
         return;
       }
-      toast({ title: "Ingreso exitoso" });
-      // Não navegar aqui - deixe o listener onAuthStateChange fazer isso
+      if (data.session) {
+        toast({ title: "Ingreso exitoso" });
+        // Redirecionar imediatamente se temos sessão
+        navigate("/");
+      }
     } catch (err: any) {
+      console.error("Erro inesperado:", err);
       toast({ title: "Error inesperado", description: err?.message ?? "Intenta nuevamente" });
     } finally {
       setLoading(false);
