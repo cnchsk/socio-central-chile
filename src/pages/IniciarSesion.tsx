@@ -81,8 +81,27 @@ const IniciarSesion = () => {
           userId: data.user.id, 
           email: data.user.email 
         });
-        toast({ title: "Ingreso exitoso" });
-        navigate("/");
+        
+        // Verificar se é admin
+        try {
+          const { data: isAdmin } = await supabase.rpc('is_admin', { 
+            _user_id: data.user.id 
+          });
+          
+          console.log("Verificação de admin:", { isAdmin });
+          
+          toast({ title: "Ingreso exitoso" });
+          
+          // Redirecionar baseado no role
+          if (isAdmin) {
+            navigate("/admin");
+          } else {
+            navigate("/dashboard");
+          }
+        } catch (roleError) {
+          console.error("Erro ao verificar role:", roleError);
+          navigate("/");
+        }
       } else {
         console.log("Login sem sessão:", data);
         toast({
