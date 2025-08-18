@@ -105,6 +105,9 @@ const RedefinirSenha = () => {
         description: "Sua senha foi alterada. Você pode fazer login agora.",
       });
       
+      // Encerrar a sessão de recuperação para forçar novo login com a senha atualizada
+      await supabase.auth.signOut();
+      
       // Redirecionar para a página de login após sucesso
       navigate("/iniciar-sesion");
     } catch (err: any) {
