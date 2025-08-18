@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
-import { ArrowLeft, Edit, CreditCard } from "lucide-react";
+import { ArrowLeft, Edit, IdCard } from "lucide-react";
 
 interface Cliente {
   id: string;
@@ -121,7 +121,7 @@ const CadastroClientes = () => {
     if (!clienteSeleccionado) return;
 
     try {
-      // Actualizar RFID del cliente
+      // Actualizar código RFID del cliente
       const { error: updateError } = await supabase
         .from('profiles')
         .update({ rfid: rfidNuevo || null })
@@ -200,7 +200,7 @@ const CadastroClientes = () => {
             </Button>
             <div>
               <h1 className="text-lg font-semibold">Gestión de Clientes</h1>
-              <p className="text-sm text-muted-foreground">Editar RFID y permisos de tiendas</p>
+              <p className="text-sm text-muted-foreground">Editar códigos RFID y permisos de tiendas</p>
             </div>
           </div>
         </nav>
@@ -212,7 +212,7 @@ const CadastroClientes = () => {
             <CardHeader>
               <CardTitle>Lista de Clientes</CardTitle>
               <CardDescription>
-                Selecciona un cliente para editar su información RFID y permisos de tiendas
+                Selecciona un cliente para editar su información de acceso RFID y permisos de tiendas
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -222,7 +222,7 @@ const CadastroClientes = () => {
                     <TableHead>Nombre</TableHead>
                     <TableHead>RUT</TableHead>
                     <TableHead>Email</TableHead>
-                    <TableHead>RFID</TableHead>
+                    <TableHead>Código RFID</TableHead>
                     <TableHead>Acciones</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -234,7 +234,7 @@ const CadastroClientes = () => {
                       <TableCell>{cliente.email}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <CreditCard className="h-4 w-4" />
+                          <IdCard className="h-4 w-4" />
                           {cliente.rfid || "Sin asignar"}
                         </div>
                       </TableCell>
@@ -287,7 +287,7 @@ const CadastroClientes = () => {
                 <div className="space-y-2">
                   <Label htmlFor="rfid">Código RFID</Label>
                   <div className="flex items-center gap-2">
-                    <CreditCard className="h-4 w-4" />
+                    <IdCard className="h-4 w-4" />
                     <Input
                       id="rfid"
                       value={rfidNuevo}
