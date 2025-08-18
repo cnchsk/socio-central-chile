@@ -91,6 +91,7 @@ export type Database = {
           rut: string
           telefono: string | null
           updated_at: string | null
+          vip: boolean | null
         }
         Insert: {
           activa?: boolean | null
@@ -102,6 +103,7 @@ export type Database = {
           rut: string
           telefono?: string | null
           updated_at?: string | null
+          vip?: boolean | null
         }
         Update: {
           activa?: boolean | null
@@ -113,6 +115,49 @@ export type Database = {
           rut?: string
           telefono?: string | null
           updated_at?: string | null
+          vip?: boolean | null
+        }
+        Relationships: []
+      }
+      vip_store_registrations: {
+        Row: {
+          confirmed_at: string | null
+          created_at: string
+          direccion: string | null
+          email: string
+          expires_at: string
+          id: string
+          nombre: string
+          observaciones: string | null
+          rut: string
+          telefono: string | null
+          token: string
+        }
+        Insert: {
+          confirmed_at?: string | null
+          created_at?: string
+          direccion?: string | null
+          email: string
+          expires_at: string
+          id?: string
+          nombre: string
+          observaciones?: string | null
+          rut: string
+          telefono?: string | null
+          token: string
+        }
+        Update: {
+          confirmed_at?: string | null
+          created_at?: string
+          direccion?: string | null
+          email?: string
+          expires_at?: string
+          id?: string
+          nombre?: string
+          observaciones?: string | null
+          rut?: string
+          telefono?: string | null
+          token?: string
         }
         Relationships: []
       }

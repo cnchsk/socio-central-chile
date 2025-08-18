@@ -1,1 +1,7 @@
 project_id = "ujltdkehetooiasqhxmk"
+
+[functions.send-vip-store-email]
+verify_jwt = false
+
+[functions.confirm-vip-store]
+verify_jwt = false
