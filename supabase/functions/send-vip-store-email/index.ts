@@ -1,19 +1,8 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.55.0";
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import { Resend } from "npm:resend@2.0.0";
 
-const smtpClient = new SMTPClient({
-  connection: {
-    hostname: Deno.env.get("SMTP_HOST")!,
-    port: parseInt(Deno.env.get("SMTP_PORT")!),
-    tls: true,
-    auth: {
-      username: Deno.env.get("SMTP_USER")!,
-      password: Deno.env.get("SMTP_PASS")!,
-    },
-  },
-});
-
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 const supabaseUrl = Deno.env.get("SUPABASE_URL");
 const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
@@ -80,9 +69,9 @@ const handler = async (req: Request): Promise<Response> => {
     // Send confirmation email
     const confirmUrl = `${supabaseUrl}/functions/v1/confirm-vip-store?token=${token}`;
     
-    await smtpClient.send({
-      from: "Sistema VIP <contact@viptalca.com>",
-      to: email,
+    const emailResponse = await resend.emails.send({
+      from: "VIP Talca <onboarding@resend.dev>",
+      to: [email],
       subject: "Confirma tu registro como Tienda VIP",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -107,7 +96,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email sent successfully via SMTP");
+    console.log("Email sent successfully:", emailResponse);
 
     return new Response(
       JSON.stringify({ 
