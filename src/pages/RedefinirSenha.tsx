@@ -26,11 +26,31 @@ const RedefinirSenha = () => {
       document.head.appendChild(m);
     }
 
-    // Verificar se há parâmetros de reset de senha na URL
+    // Verificar se há hash com tokens ou parâmetros na URL
+    const hash = window.location.hash;
     const accessToken = searchParams.get('access_token');
     const refreshToken = searchParams.get('refresh_token');
     const type = searchParams.get('type');
 
+    // Verificar se há tokens no hash (formato comum do Supabase)
+    if (hash) {
+      const hashParams = new URLSearchParams(hash.substring(1));
+      const hashAccessToken = hashParams.get('access_token');
+      const hashRefreshToken = hashParams.get('refresh_token');
+      const hashType = hashParams.get('type');
+      
+      if (hashAccessToken && hashRefreshToken && hashType === 'recovery') {
+        setIsValidToken(true);
+        // Definir a sessão com os tokens recebidos
+        supabase.auth.setSession({
+          access_token: hashAccessToken,
+          refresh_token: hashRefreshToken
+        });
+        return;
+      }
+    }
+
+    // Verificar parâmetros de query string
     if (accessToken && refreshToken && type === 'recovery') {
       setIsValidToken(true);
       // Definir a sessão com os tokens recebidos
@@ -41,7 +61,7 @@ const RedefinirSenha = () => {
     } else {
       toast({
         title: "Link inválido",
-        description: "Este link de recuperação é inválido ou expirou.",
+        description: "Este link de recuperação é inválido ou expirou. Solicite um novo link de recuperação.",
       });
       navigate("/iniciar-sesion");
     }
