@@ -70,7 +70,7 @@ const IniciarSesion = () => {
     setResetLoading(true);
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/iniciar-sesion`,
+        redirectTo: `${window.location.origin}/redefinir-senha`,
       });
       
       if (error) {
