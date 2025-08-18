@@ -35,7 +35,26 @@ const IniciarSesion = () => {
       document.head.appendChild(l);
     }
 
-  }, []);
+    // Verificar se já está autenticado e redirecionar
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        navigate("/");
+      }
+    };
+    checkAuth();
+
+    // Listener para mudanças de autenticação
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        navigate("/");
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +69,7 @@ const IniciarSesion = () => {
         return;
       }
       toast({ title: "Ingreso exitoso" });
-      navigate("/");
+      // Não navegar aqui - deixe o listener onAuthStateChange fazer isso
     } catch (err: any) {
       toast({ title: "Error inesperado", description: err?.message ?? "Intenta nuevamente" });
     } finally {
