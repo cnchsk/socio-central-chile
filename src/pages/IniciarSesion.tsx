@@ -50,23 +50,48 @@ const IniciarSesion = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    
+    console.log("Tentando login com:", { email, passwordLength: password.length });
+    
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error } = await supabase.auth.signInWithPassword({ 
+        email: email.trim(), 
+        password 
+      });
+      
+      console.log("Resposta do login:", { data, error });
+      
       if (error) {
-        console.error("Erro de login:", error);
+        console.error("Erro de login detalhado:", {
+          code: error.message,
+          details: error
+        });
+        
         toast({
           title: "Error al iniciar sesión",
-          description: error.message || "Correo o contraseña inválidos",
+          description: error.message === "Invalid login credentials" 
+            ? "Email ou senha incorretos. Verifique se você já se cadastrou." 
+            : error.message,
         });
         return;
       }
-      if (data.session) {
+      
+      if (data.session && data.user) {
+        console.log("Login bem-sucedido:", { 
+          userId: data.user.id, 
+          email: data.user.email 
+        });
         toast({ title: "Ingreso exitoso" });
-        // Redirecionar imediatamente se temos sessão
         navigate("/");
+      } else {
+        console.log("Login sem sessão:", data);
+        toast({
+          title: "Erro no login",
+          description: "Não foi possível criar a sessão"
+        });
       }
     } catch (err: any) {
-      console.error("Erro inesperado:", err);
+      console.error("Erro inesperado no login:", err);
       toast({ title: "Error inesperado", description: err?.message ?? "Intenta nuevamente" });
     } finally {
       setLoading(false);
