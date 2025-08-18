@@ -90,6 +90,12 @@ const Admin = () => {
             >
               Configuración Tiendas
             </a>
+            <a 
+              href="/admin/gerenciar-tiendas" 
+              className="border-b-2 border-transparent hover:border-primary py-4 px-1 text-sm font-medium transition-colors hover:text-primary"
+            >
+              Gerenciar Tiendas
+            </a>
           </div>
         </div>
       </nav>
