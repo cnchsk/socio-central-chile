@@ -11,6 +11,8 @@ const IniciarSesion = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
+  const [showResetForm, setShowResetForm] = useState(false);
 
   useEffect(() => {
     document.title = "Iniciar sesión | Sitio institucional";
@@ -55,6 +57,45 @@ const IniciarSesion = () => {
     }
   };
 
+  const onResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast({
+        title: "Campo requerido",
+        description: "Por favor ingresa tu correo electrónico",
+      });
+      return;
+    }
+
+    setResetLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/iniciar-sesion`,
+      });
+      
+      if (error) {
+        toast({
+          title: "Error al enviar correo",
+          description: error.message,
+        });
+        return;
+      }
+
+      toast({
+        title: "Correo enviado",
+        description: "Revisa tu bandeja de entrada para restablecer tu contraseña",
+      });
+      setShowResetForm(false);
+    } catch (err: any) {
+      toast({ 
+        title: "Error inesperado", 
+        description: err?.message ?? "Intenta nuevamente" 
+      });
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b">
@@ -64,42 +105,84 @@ const IniciarSesion = () => {
       </header>
       <main className="mx-auto max-w-xl px-4 py-10">
         <article className="mx-auto w-full max-w-md">
-          <h1 className="mb-6 text-2xl font-bold">Iniciar sesión</h1>
+          <h1 className="mb-6 text-2xl font-bold">
+            {showResetForm ? "Recuperar contraseña" : "Iniciar sesión"}
+          </h1>
           <p className="mb-8 text-muted-foreground">
-            Ingresa con tu correo y contraseña para acceder a tu cuenta.
+            {showResetForm 
+              ? "Ingresa tu correo para recibir instrucciones de restablecimiento"
+              : "Ingresa con tu correo y contraseña para acceder a tu cuenta."
+            }
           </p>
-          <form onSubmit={onSubmit} className="space-y-6" aria-label="Formulario de inicio de sesión">
-            <section className="space-y-2">
-              <Label htmlFor="email">Correo</Label>
-              <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@correo.cl"
-              />
-            </section>
-            <section className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-              />
-            </section>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">¿Olvidaste tu contraseña?</span>
-            </div>
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Ingresando…" : "Iniciar sesión"}
-            </Button>
-          </form>
+
+          {showResetForm ? (
+            <form onSubmit={onResetPassword} className="space-y-6" aria-label="Formulario de recuperación de contraseña">
+              <section className="space-y-2">
+                <Label htmlFor="reset-email">Correo electrónico</Label>
+                <Input
+                  id="reset-email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="tu@correo.cl"
+                />
+              </section>
+              <div className="space-y-3">
+                <Button type="submit" disabled={resetLoading} className="w-full">
+                  {resetLoading ? "Enviando…" : "Enviar correo de recuperación"}
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  className="w-full"
+                  onClick={() => setShowResetForm(false)}
+                >
+                  Volver al inicio de sesión
+                </Button>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={onSubmit} className="space-y-6" aria-label="Formulario de inicio de sesión">
+              <section className="space-y-2">
+                <Label htmlFor="email">Correo</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="tu@correo.cl"
+                />
+              </section>
+              <section className="space-y-2">
+                <Label htmlFor="password">Contraseña</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                />
+              </section>
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => setShowResetForm(true)}
+                  className="text-sm text-primary hover:underline focus:outline-none focus:underline"
+                >
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </div>
+              <Button type="submit" disabled={loading} className="w-full">
+                {loading ? "Ingresando…" : "Iniciar sesión"}
+              </Button>
+            </form>
+          )}
         </article>
       </main>
     </div>
